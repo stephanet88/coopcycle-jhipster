@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <!--
+        Added the constraints for entity Institution.
+    -->
+    <changeSet id="20210404152540-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="user_account_id"
+                                 baseTableName="institution"
+                                 constraintName="fk_institution__user_account_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_account"/>
+
+        <addForeignKeyConstraint baseColumnNames="institution_id"
+                                 baseTableName="rel_institution__cart"
+                                 constraintName="fk_rel_institution__cart__institution_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="institution"/>
+
+        <addForeignKeyConstraint baseColumnNames="cart_id"
+                                 baseTableName="rel_institution__cart"
+                                 constraintName="fk_rel_institution__cart__cart_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="cart"/>
+
+        <addForeignKeyConstraint baseColumnNames="cooperative_id"
+                                 baseTableName="institution"
+                                 constraintName="fk_institution__cooperative_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="cooperative"/>
+    </changeSet>
+</databaseChangeLog>

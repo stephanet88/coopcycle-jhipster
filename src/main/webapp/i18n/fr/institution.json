@@ -1,0 +1,29 @@
+{
+  "coopcycleApp": {
+    "institution": {
+      "home": {
+        "title": "Institutions",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Institution",
+        "createOrEditLabel": "Créer ou éditer un Institution",
+        "notFound": "Aucun Institution trouvé"
+      },
+      "created": "Un nouveau Institution a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Institution avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Institution avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Institution {{ id }} ?"
+      },
+      "detail": {
+        "title": "Institution"
+      },
+      "id": "ID",
+      "name": "Name",
+      "type": "Type",
+      "userAccount": "User Account",
+      "product": "Product",
+      "cart": "Cart",
+      "cooperative": "Cooperative"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "UserAccount",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "age",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "2"
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "cart",
+      "otherEntityRelationshipName": "userAccount",
+      "relationshipName": "cart"
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "institution",
+      "otherEntityRelationshipName": "userAccount",
+      "relationshipName": "institution",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "cooperative",
+      "otherEntityRelationshipName": "userAccount",
+      "relationshipName": "cooperative",
+      "ownerSide": false
+    }
+  ],
+  "entityTableName": "user_account",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210404152537"
+}

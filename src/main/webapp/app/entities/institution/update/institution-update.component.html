@@ -1,0 +1,95 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-institution-heading"
+        data-cy="InstitutionCreateUpdateHeading"
+        jhiTranslate="coopcycleApp.institution.home.createOrEditLabel"
+      >
+        Create or edit a Institution
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopcycleApp.institution.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopcycleApp.institution.type" for="field_type">Type</label>
+          <input type="text" class="form-control" name="type" id="field_type" data-cy="type" formControlName="type" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopcycleApp.institution.userAccount" for="field_userAccount">User Account</label>
+          <select class="form-control" id="field_userAccount" data-cy="userAccount" name="userAccount" formControlName="userAccount">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                userAccountOption.id === editForm.get('userAccount')!.value?.id ? editForm.get('userAccount')!.value : userAccountOption
+              "
+              *ngFor="let userAccountOption of userAccountsCollection; trackBy: trackUserAccountById"
+            >
+              {{ userAccountOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label jhiTranslate="coopcycleApp.institution.cart" for="field_carts">Cart</label>
+          <select class="form-control" id="field_carts" data-cy="cart" multiple name="carts" formControlName="carts">
+            <option
+              [ngValue]="getSelectedCart(cartOption, editForm.get('carts')!.value)"
+              *ngFor="let cartOption of cartsSharedCollection; trackBy: trackCartById"
+            >
+              {{ cartOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopcycleApp.institution.cooperative" for="field_cooperative">Cooperative</label>
+          <select class="form-control" id="field_cooperative" data-cy="cooperative" name="cooperative" formControlName="cooperative">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                cooperativeOption.id === editForm.get('cooperative')!.value?.id ? editForm.get('cooperative')!.value : cooperativeOption
+              "
+              *ngFor="let cooperativeOption of cooperativesSharedCollection; trackBy: trackCooperativeById"
+            >
+              {{ cooperativeOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

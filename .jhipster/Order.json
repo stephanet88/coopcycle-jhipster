@@ -1,0 +1,42 @@
+{
+  "name": "Order",
+  "fields": [
+    {
+      "fieldName": "status",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "orderTime",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "estimatedDeliveryTime",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "realDeliveryTime",
+      "fieldType": "ZonedDateTime"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "cart",
+      "otherEntityRelationshipName": "order",
+      "relationshipName": "cart",
+      "ownerSide": true
+    }
+  ],
+  "entityTableName": "jhi_order",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210404152535"
+}

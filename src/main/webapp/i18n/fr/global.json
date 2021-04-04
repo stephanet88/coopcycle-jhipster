@@ -7,6 +7,13 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entités",
+        "cart": "Cart",
+        "order": "Order",
+        "paymentOption": "Payment Option",
+        "userAccount": "User Account",
+        "cooperative": "Cooperative",
+        "product": "Product",
+        "institution": "Institution",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

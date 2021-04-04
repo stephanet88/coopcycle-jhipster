@@ -1,0 +1,67 @@
+
+
+entity Cart {
+
+  numberOfProducts Integer min(1)	
+}
+
+entity Order {
+
+  status String required
+  orderTime ZonedDateTime
+  estimatedDeliveryTime ZonedDateTime required
+  realDeliveryTime ZonedDateTime
+
+}
+
+entity PaymentOption {
+  type String
+}
+
+entity UserAccount {
+  name String required
+  age Integer min(2)
+  type String required /* customer, courier */
+  
+}
+
+entity Cooperative {
+  name String required
+  location String required
+}
+
+entity Product {
+  name String required
+  price Integer required
+  currency String required
+  image ImageBlob 
+}
+
+
+entity Institution {
+  name String required
+  type String /*Restaurant ...*/
+  
+}
+
+
+relationship OneToMany {
+  UserAccount to Cart,
+  Cooperative to Institution,
+  Institution to Product
+}
+
+relationship OneToOne {
+  Order to Cart,
+  Institution to UserAccount
+  Cooperative to UserAccount
+  PaymentOption to Cart
+}
+
+
+relationship ManyToMany {
+  Institution to Cart
+}
+
+
+dto * with mapstruct

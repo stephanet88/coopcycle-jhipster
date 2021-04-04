@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="institution">
+      <h2 data-cy="institutionDetailsHeading"><span jhiTranslate="coopcycleApp.institution.detail.title">Institution</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ institution.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="coopcycleApp.institution.name">Name</span></dt>
+        <dd>
+          <span>{{ institution.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="coopcycleApp.institution.type">Type</span></dt>
+        <dd>
+          <span>{{ institution.type }}</span>
+        </dd>
+        <dt><span jhiTranslate="coopcycleApp.institution.userAccount">User Account</span></dt>
+        <dd>
+          <div *ngIf="institution.userAccount">
+            <a [routerLink]="['/user-account', institution.userAccount?.id, 'view']">{{ institution.userAccount?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="coopcycleApp.institution.cart">Cart</span></dt>
+        <dd>
+          <span *ngFor="let cart of institution.carts; let last = last">
+            <a [routerLink]="['/cart', cart?.id, 'view']">{{ cart.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="coopcycleApp.institution.cooperative">Cooperative</span></dt>
+        <dd>
+          <div *ngIf="institution.cooperative">
+            <a [routerLink]="['/cooperative', institution.cooperative?.id, 'view']">{{ institution.cooperative?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/institution', institution.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

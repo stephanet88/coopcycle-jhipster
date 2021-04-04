@@ -1,0 +1,38 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="paymentOption">
+      <h2 data-cy="paymentOptionDetailsHeading"><span jhiTranslate="coopcycleApp.paymentOption.detail.title">Payment Option</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ paymentOption.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="coopcycleApp.paymentOption.type">Type</span></dt>
+        <dd>
+          <span>{{ paymentOption.type }}</span>
+        </dd>
+        <dt><span jhiTranslate="coopcycleApp.paymentOption.cart">Cart</span></dt>
+        <dd>
+          <div *ngIf="paymentOption.cart">
+            <a [routerLink]="['/cart', paymentOption.cart?.id, 'view']">{{ paymentOption.cart?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/payment-option', paymentOption.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

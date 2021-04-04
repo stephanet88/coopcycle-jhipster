@@ -1,0 +1,127 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-order-heading" data-cy="OrderCreateUpdateHeading" jhiTranslate="coopcycleApp.order.home.createOrEditLabel">
+        Create or edit a Order
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopcycleApp.order.status" for="field_status">Status</label>
+          <input type="text" class="form-control" name="status" id="field_status" data-cy="status" formControlName="status" />
+          <div *ngIf="editForm.get('status')!.invalid && (editForm.get('status')!.dirty || editForm.get('status')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('status')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopcycleApp.order.orderTime" for="field_orderTime">Order Time</label>
+          <div class="d-flex">
+            <input
+              id="field_orderTime"
+              data-cy="orderTime"
+              type="datetime-local"
+              class="form-control"
+              name="orderTime"
+              formControlName="orderTime"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopcycleApp.order.estimatedDeliveryTime" for="field_estimatedDeliveryTime"
+            >Estimated Delivery Time</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_estimatedDeliveryTime"
+              data-cy="estimatedDeliveryTime"
+              type="datetime-local"
+              class="form-control"
+              name="estimatedDeliveryTime"
+              formControlName="estimatedDeliveryTime"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          <div
+            *ngIf="
+              editForm.get('estimatedDeliveryTime')!.invalid &&
+              (editForm.get('estimatedDeliveryTime')!.dirty || editForm.get('estimatedDeliveryTime')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('estimatedDeliveryTime')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('estimatedDeliveryTime')?.errors?.ZonedDateTimelocal"
+              jhiTranslate="entity.validation.ZonedDateTimelocal"
+            >
+              This field should be a date and time.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopcycleApp.order.realDeliveryTime" for="field_realDeliveryTime"
+            >Real Delivery Time</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_realDeliveryTime"
+              data-cy="realDeliveryTime"
+              type="datetime-local"
+              class="form-control"
+              name="realDeliveryTime"
+              formControlName="realDeliveryTime"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopcycleApp.order.cart" for="field_cart">Cart</label>
+          <select class="form-control" id="field_cart" data-cy="cart" name="cart" formControlName="cart">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="cartOption.id === editForm.get('cart')!.value?.id ? editForm.get('cart')!.value : cartOption"
+              *ngFor="let cartOption of cartsCollection; trackBy: trackCartById"
+            >
+              {{ cartOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

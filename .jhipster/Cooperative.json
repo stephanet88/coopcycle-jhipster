@@ -1,0 +1,40 @@
+{
+  "name": "Cooperative",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "location",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "userAccount",
+      "otherEntityRelationshipName": "cooperative",
+      "relationshipName": "userAccount",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "institution",
+      "otherEntityRelationshipName": "cooperative",
+      "relationshipName": "institution"
+    }
+  ],
+  "entityTableName": "cooperative",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210404152538"
+}

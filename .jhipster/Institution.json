@@ -1,0 +1,52 @@
+{
+  "name": "Institution",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "userAccount",
+      "otherEntityRelationshipName": "institution",
+      "relationshipName": "userAccount",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "institution",
+      "relationshipName": "product"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "cart",
+      "otherEntityRelationshipName": "institution",
+      "relationshipName": "cart",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "cooperative",
+      "otherEntityRelationshipName": "institution",
+      "relationshipName": "cooperative"
+    }
+  ],
+  "entityTableName": "institution",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210404152540"
+}

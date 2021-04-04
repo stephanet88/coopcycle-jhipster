@@ -1,0 +1,76 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-user-account-heading"
+        data-cy="UserAccountCreateUpdateHeading"
+        jhiTranslate="coopcycleApp.userAccount.home.createOrEditLabel"
+      >
+        Create or edit a User Account
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopcycleApp.userAccount.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopcycleApp.userAccount.age" for="field_age">Age</label>
+          <input type="number" class="form-control" name="age" id="field_age" data-cy="age" formControlName="age" />
+          <div *ngIf="editForm.get('age')!.invalid && (editForm.get('age')!.dirty || editForm.get('age')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('age')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 2 }"
+            >
+              This field should be at least 2.
+            </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('age')?.errors?.number" jhiTranslate="entity.validation.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopcycleApp.userAccount.type" for="field_type">Type</label>
+          <input type="text" class="form-control" name="type" id="field_type" data-cy="type" formControlName="type" />
+          <div *ngIf="editForm.get('type')!.invalid && (editForm.get('type')!.dirty || editForm.get('type')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('type')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

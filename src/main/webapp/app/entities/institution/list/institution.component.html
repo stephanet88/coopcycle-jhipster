@@ -1,0 +1,99 @@
+<div>
+  <h2 id="page-heading" data-cy="InstitutionHeading">
+    <span jhiTranslate="coopcycleApp.institution.home.title">Institutions</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="coopcycleApp.institution.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-institution"
+        [routerLink]="['/institution/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="coopcycleApp.institution.home.createLabel"> Create a new Institution </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="institutions?.length === 0">
+    <span jhiTranslate="coopcycleApp.institution.home.notFound">No institutions found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="institutions && institutions.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="coopcycleApp.institution.name">Name</span></th>
+          <th scope="col"><span jhiTranslate="coopcycleApp.institution.type">Type</span></th>
+          <th scope="col"><span jhiTranslate="coopcycleApp.institution.userAccount">User Account</span></th>
+          <th scope="col"><span jhiTranslate="coopcycleApp.institution.cart">Cart</span></th>
+          <th scope="col"><span jhiTranslate="coopcycleApp.institution.cooperative">Cooperative</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let institution of institutions; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/institution', institution.id, 'view']">{{ institution.id }}</a>
+          </td>
+          <td>{{ institution.name }}</td>
+          <td>{{ institution.type }}</td>
+          <td>
+            <div *ngIf="institution.userAccount">
+              <a [routerLink]="['/user-account', institution.userAccount?.id, 'view']">{{ institution.userAccount?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <span *ngFor="let cart of institution.carts; let last = last">
+              <a class="form-control-static" [routerLink]="['/cart', cart.id, 'view']">{{ cart.id }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td>
+            <div *ngIf="institution.cooperative">
+              <a [routerLink]="['/cooperative', institution.cooperative?.id, 'view']">{{ institution.cooperative?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/institution', institution.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/institution', institution.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(institution)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

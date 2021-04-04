@@ -1,0 +1,50 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="order">
+      <h2 data-cy="orderDetailsHeading"><span jhiTranslate="coopcycleApp.order.detail.title">Order</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ order.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="coopcycleApp.order.status">Status</span></dt>
+        <dd>
+          <span>{{ order.status }}</span>
+        </dd>
+        <dt><span jhiTranslate="coopcycleApp.order.orderTime">Order Time</span></dt>
+        <dd>
+          <span>{{ order.orderTime | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="coopcycleApp.order.estimatedDeliveryTime">Estimated Delivery Time</span></dt>
+        <dd>
+          <span>{{ order.estimatedDeliveryTime | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="coopcycleApp.order.realDeliveryTime">Real Delivery Time</span></dt>
+        <dd>
+          <span>{{ order.realDeliveryTime | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="coopcycleApp.order.cart">Cart</span></dt>
+        <dd>
+          <div *ngIf="order.cart">
+            <a [routerLink]="['/cart', order.cart?.id, 'view']">{{ order.cart?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/order', order.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
